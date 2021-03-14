@@ -1,0 +1,11 @@
+{
+    "socketio": {
+        "label": {
+            "port": "Port",
+            "options": "Options",
+            "instance": "Instance",
+            "event": "Event",
+            "namespace": "Namespace"
+        }
+    }
+}

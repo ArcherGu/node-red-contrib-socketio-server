@@ -1,1 +1,148 @@
+<!-- Socket.Io Server instance node -->
+<script type="text/html" data-template-name="socket.io-instance">
+    <div class="form-row">
+        <label for="node-config-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="node-red:common.label.name"></span>
+        </label>
+        <input type="text" id="node-config-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
 
+    <div class="form-row">
+        <label for="node-config-input-port">
+            <i class="fa fa-terminal"></i>
+            <span data-i18n="socketio.label.port"></span>
+        </label>
+        <input type="text" id="node-config-input-port" placeholder="3000">
+    </div>
+
+    <div class="form-row" style="position: relative; margin-bottom: 0px;">
+        <label for="node-config-input-options">
+            <i class="fa fa-file-code-o"></i>
+            <span data-i18n="socketio.label.options"></span>
+        </label>
+        <input type="hidden" id="node-config-input-options" autofocus="autofocus">
+    </div>
+    <div class="form-row node-config-text-editor-row">
+        <div style="height:250px;" class="node-text-editor" id="node-config-input-options-editor"></div>
+    </div>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('socket.io-instance', {
+        category: 'config',
+        defaults: {
+            name: {
+                value: ""
+            },
+            port: {
+                value: 3000,
+                required: true,
+                validate: RED.validators.number()
+            },
+            options: {
+                value: ""
+            }
+        },
+        label: function () {
+            return this.name || ("Socket.IO server at " + this.port);
+        },
+        oneditprepare: function () {
+            this.editor = RED.editor.createEditor({
+                id: 'node-config-input-options-editor',
+                mode: 'ace/mode/json',
+                value: $("#node-config-input-options").val()
+            });
+        },
+        oneditsave: function () {
+            $("#node-config-input-options").val(this.editor.getValue());
+            this.editor.destroy();
+            delete this.editor;
+        },
+        oneditcancel: function () {
+            this.editor.destroy();
+            delete this.editor;
+        },
+        oneditresize: function (size) {
+            var rows = $("#dialog-form>div:not(.node-config-text-editor-row)");
+            var height = $("#dialog-form").height();
+            for (var i = 0; i < rows.size(); i++) {
+                height -= $(rows[i]).outerHeight(true);
+            }
+            var editorRow = $("#dialog-form>div.node-config-text-editor-row");
+            height -= (parseInt(editorRow.css("marginTop")) + parseInt(editorRow.css("marginBottom")));
+            $(".node-config-text-editor-row").css("height", height + "px");
+            this.editor.resize();
+        }
+    });
+
+</script>
+
+
+<!-- Socket.Io Server event on node -->
+<script type="text/html" data-template-name="socket.io-on">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="node-red:common.label.name"></span>
+        </label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-instance">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.instance"></span>
+        </label>
+        <input type="text" id="node-input-instance">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-event">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.event"></span>
+        </label>
+        <input type="text" id="node-input-event">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-namespace">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.namespace"></span>
+        </label>
+        <input type="text" id="node-input-namespace">
+    </div>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('socket.io-on', {
+        category: "Socket.IO",
+        color: "rgb(0, 230, 184)",
+        defaults: {
+            name: {
+                value: ""
+            },
+            instance: {
+                value: "",
+                required: true,
+                type: "socket.io-instance"
+            },
+            event: {
+                value: "",
+                required: true,
+            },
+            namespace: {
+                value: "",
+            }
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: "bridge.svg",
+        label: function () {
+            return this.name || "Socket.IO On";
+        },
+    });
+
+</script>
