@@ -1,0 +1,82 @@
+<script type="text/html" data-help-name="socket.io-instance">
+    <p>创建一个Socket.IO Server的实例。</p>
+    <p>必须指定一个端口进行监听。</p>
+    <p>配置请使用JSON，详细的配置信息可以参考<a href="https://socket.io/docs/v3/server-initialization/" target="_new">Socket.IO的文档</a>
+    </p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-on">
+    <p>指定一个实例监听特定的事件。</p>
+    <p>
+        一个
+        <a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a>
+        实例将被挂载到<code>msg.socket</code>用于输出。
+    </p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-emit">
+    <p>发送特定事件的数据至客户端。</p>
+    <p>需要发送的数据挂载至<code>msg.payload</code>。</p>
+    <p><code>msg.event</code>，<code>msg.namespace</code>，<code>msg.room</code>可用于覆盖节点设置的参数</p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-join-room">
+    <p>将<a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a>实例加入至特定房间。</p>
+    <p><a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a>实例必须挂载至<code>msg.socket</code>。
+    </p>
+    <p>相同的<code>msg</code>将被输出。</p>
+    <p><code>msg.room</code>可用于覆盖节点设置的参数</p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-leave-room">
+    <p>令<a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a>实例离开特定房间。</p>
+    <p><a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a>实例必须挂载至<code>msg.socket</code>。
+    </p>
+    <p>相同的<code>msg</code>将被输出。</p>
+    <p><code>msg.room</code>可用于覆盖节点设置的参数</p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-middleware-start">
+    <p>Socket.IO Server实例的<a href="https://socket.io/docs/v3/middlewares/" target="_new">中间件</a>设定。</p>
+    <p>需要和<code>socket.io middleware end</code>配合使用。</p>
+    <p>将需要处理的中间件流程串联于<code>socket.io middleware start</code>和<code>socket.io middleware
+            end</code>之间。</p>
+    <p>处理流程将会接收一个包含<code>msg.socket</code>和<code>msg.next</code>的输入：</p>
+    <p><code>msg.socket</code>：<a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a>实例</p>
+    <p><code>msg.next</code>：中间件流程完成方法</p>
+    <p><strong>请勿在处理流程中覆盖或删除上述两个成员</strong></p>
+
+    <p>处理流程最终需要将<code>true / false</code>挂载至<code>msg.payload</code>，然后接入<code>socket.io middleware
+            end</code>用于完成中间件的整个流程。
+    </p>
+    <p>成功：<code>socket.io middleware end</code>收到的<code>msg.payload</code>为<code>true</code></p>
+    <p>失败：<code>socket.io middleware
+            end</code>收到的<code>msg.payload</code>为<code>false</code>，客户端的链接将被断开，可以将一个自定义的错误消息挂载至<code>msg.errMsg</code>用于传递给客户端。
+    </p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-middleware-end">
+    <p>Socket.IO Server实例的<a href="https://socket.io/docs/v3/middlewares/" target="_new">中间件</a>设定。</p>
+    <p>需要和<code>socket.io middleware end</code>配合使用。</p>
+    <p>将需要处理的中间件流程串联于<code>socket.io middleware start</code>和<code>socket.io middleware
+            end</code>之间。</p>
+    <p>处理流程将会接收一个包含<code>msg.socket</code>和<code>msg.next</code>的输入：</p>
+    <p><code>msg.socket</code>：<a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a>实例</p>
+    <p><code>msg.next</code>：中间件流程完成方法</p>
+    <p><strong>请勿在处理流程中覆盖或删除上述两个成员</strong></p>
+
+    <p>处理流程最终需要将<code>true / false</code>挂载至<code>msg.payload</code>，然后接入<code>socket.io middleware
+            end</code>用于完成中间件的整个流程。
+    </p>
+    <p>成功：<code>socket.io middleware end</code>收到的<code>msg.payload</code>为<code>true</code></p>
+    <p>失败：<code>socket.io middleware
+            end</code>收到的<code>msg.payload</code>为<code>false</code>，客户端的链接将被断开，可以将一个自定义的错误消息挂载至<code>msg.errMsg</code>用于传递给客户端。
+    </p>
+
+</script>

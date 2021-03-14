@@ -1,0 +1,95 @@
+<script type="text/html" data-help-name="socket.io-instance">
+    <p>Create a instance of Socket.IO Server.</p>
+    <p>A port must be specified to bind.</p>
+    <p>JSON is required for options. Options information can be referenced in
+        <a href="https://socket.io/docs/v3/server-initialization/" target="_new">Socket.IO documentation</a>
+    </p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-on">
+    <p>Specify an instance to listen for specific event.</p>
+    <p>
+        A <a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a> instance will be mounted to
+        <code>msg.socket</code> for output.
+    </p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-emit">
+    <p>Send data for a specific event to clients.</p>
+    <p>Mount data for sending to <code>msg.payload</code>.</p>
+    <p><code>msg.event</code>, <code>msg.namespace</code>, <code>msg.room</code> can be used to override node's options
+    </p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-join-room">
+    <p>Let <a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a> instance join a specific
+        room.</p>
+    <p><a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a> instance must be mounted to
+        <code>msg.socket</code>.
+    </p>
+    <p>Same <code>msg</code> will be output.</p>
+    <p><code>msg.room</code> can be used to override node's options</p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-leave-room">
+    <p>Let <a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a> instance leave a specific
+        room.</p>
+    <p><a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a> instance must be mounted to
+        <code>msg.socket</code>.
+    </p>
+    <p>Same <code>msg</code> will be output.</p>
+    <p><code>msg.room</code> can be used to override node's options</p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-middleware-start">
+    <p><a href="https://socket.io/docs/v3/middlewares/" target="_new">Middleware</a> settings for Socket.IO Server
+        instance.</p>
+    <p>Need to be used with <code>socket.io middleware end</code>.</p>
+    <p>The middleware process that needs to be handled is connected in series between <code>socket.io
+            middleware start</code> and <code>socket.io middleware end</code>.</p>
+    <p>The process will receive an input that contains <code>msg.socket</code> and <code>msg.next</code>.</p>
+    <p><code>msg.socket</code>：<a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a> instance
+    </p>
+    <p><code>msg.next</code>：Middleware process completion method</p>
+    <p><strong>Do not override or delete these two members in the process</strong></p>
+
+    <p>The process finally needs to mount <code>true / false</code> to <code>msg.payload</code>, Then link
+        to<code>socket.io middleware
+            end</code> to complete the entire process of the middleware.
+    </p>
+    <p>success: <code>socket.io middleware end</code> recevies <code>msg.payload</code> what is <code>true</code></p>
+    <p>fail: <code>socket.io middleware
+            end</code> recevies <code>msg.payload</code> is <code>false</code>, the client will be
+        disconnected. You can mount a custom error message to <code>msg.errMsg</code> which will be send to client.
+    </p>
+
+</script>
+
+<script type="text/html" data-help-name="socket.io-middleware-end">
+    <p><a href="https://socket.io/docs/v3/middlewares/" target="_new">Middleware</a> settings for Socket.IO Server
+        instance.</p>
+    <p>Need to be used with <code>socket.io middleware end</code>.</p>
+    <p>The middleware process that needs to be handled is connected in series between <code>socket.io
+            middleware start</code> and <code>socket.io middleware end</code>.</p>
+    <p>The process will receive an input that contains <code>msg.socket</code> and <code>msg.next</code>.</p>
+    <p><code>msg.socket</code>：<a href="https://socket.io/docs/v3/server-api/#Socket" target="_new">Socket</a> instance
+    </p>
+    <p><code>msg.next</code>：Middleware process completion method</p>
+    <p><strong>Do not override or delete these two members in the process</strong></p>
+
+    <p>The process finally needs to mount <code>true / false</code> to <code>msg.payload</code>, Then link
+        to<code>socket.io middleware
+            end</code> to complete the entire process of the middleware.
+    </p>
+    <p>success: <code>socket.io middleware end</code> recevies <code>msg.payload</code> what is <code>true</code></p>
+    <p>fail: <code>socket.io middleware
+            end</code> recevies <code>msg.payload</code> is <code>false</code>, the client will be
+        disconnected. You can mount a custom error message to <code>msg.errMsg</code> which will be send to client.
+    </p>
+
+</script>
