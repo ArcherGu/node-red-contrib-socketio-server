@@ -204,8 +204,7 @@
                 type: "socket.io-instance"
             },
             event: {
-                value: "",
-                required: true,
+                value: ""
             },
             namespace: {
                 value: "",
@@ -219,6 +218,90 @@
         icon: "bridge.svg",
         label: function () {
             return this.name || ("Emit: " + this.event);
+        },
+    });
+
+</script>
+
+<!-- Socket.Io Server join room node -->
+<script type="text/html" data-template-name="socket.io-join-room">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="node-red:common.label.name"></span>
+        </label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-room">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.room"></span>
+        </label>
+        <input type="text" id="node-input-room">
+    </div>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('socket.io-join-room', {
+        category: "Socket.IO",
+        color: "#7FFFAA",
+        defaults: {
+            name: {
+                value: ""
+            },
+            room: {
+                value: ""
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "bridge.svg",
+        label: function () {
+            return this.name || ("Join: " + this.room);
+        },
+    });
+
+</script>
+
+<!-- Socket.Io Server join leave node -->
+<script type="text/html" data-template-name="socket.io-leave-room">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="node-red:common.label.name"></span>
+        </label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-room">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.room"></span>
+        </label>
+        <input type="text" id="node-input-room">
+    </div>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('socket.io-leave-room', {
+        category: "Socket.IO",
+        color: "#7FFFAA",
+        defaults: {
+            name: {
+                value: ""
+            },
+            room: {
+                value: ""
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "bridge.svg",
+        label: function () {
+            return this.name || ("Leave: " + this.room);
         },
     });
 

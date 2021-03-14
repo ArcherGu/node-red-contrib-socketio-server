@@ -70,12 +70,52 @@ module.exports = function (RED) {
         this.instance = RED.nodes.getNode(n.instance).instance;
 
         node.on('input', (msg) => {
+            if (!this.event && !msg.event) {
+                return;
+            }
+
             const instance = _getNamespaceAndRoomInstance(
                 this.instance,
                 msg.namespace || this.namespace,
                 msg.room || this.room,
             );
-            instance.emit(this.event, msg.payload);
+            instance.emit(msg.event || this.event, msg.payload);
+        });
+    }
+
+    function socketIoJoinRoom(n) {
+        RED.nodes.createNode(this, n);
+        // node-specific code goes here
+        const node = this;
+        this.name = n.name;
+        this.room = n.room;
+
+        node.on('input', (msg) => {
+            if (!msg.socket || (!msg.room && !this.room)) {
+                node.send(msg);
+                return;
+            }
+
+            msg.socket.join(msg.room || this.room);
+            node.send(msg);
+        });
+    }
+
+    function socketIoLeaveRoom(n) {
+        RED.nodes.createNode(this, n);
+        // node-specific code goes here
+        const node = this;
+        this.name = n.name;
+        this.room = n.room;
+
+        node.on('input', (msg) => {
+            if (!msg.socket || (!msg.room && !this.room)) {
+                node.send(msg);
+                return;
+            }
+
+            msg.socket.leave(msg.room || this.room);
+            node.send(msg);
         });
     }
 
@@ -120,6 +160,8 @@ module.exports = function (RED) {
     RED.nodes.registerType("socket.io-instance", socketIoInstance);
     RED.nodes.registerType("socket.io-on", socketIoOn);
     RED.nodes.registerType("socket.io-emit", socketIoEmit);
+    RED.nodes.registerType("socket.io-join-room", socketIoJoinRoom);
+    RED.nodes.registerType("socket.io-leave-room", socketIoLeaveRoom);
     RED.nodes.registerType("socket.io-middleware-start", socketIoMiddlewareStart);
     RED.nodes.registerType("socket.io-middleware-end", socketIoMiddlewareEnd);
 };
