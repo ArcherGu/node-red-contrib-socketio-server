@@ -5,7 +5,11 @@
             "options": "Options",
             "instance": "Instance",
             "event": "Event",
-            "namespace": "Namespace"
+            "namespace": "Namespace",
+            "outputDelay": "Output Delay"
+        },
+        "desc": {
+            "initOutputDelay": "After initialization, the output is delayed after {n} ms"
         }
     }
 }

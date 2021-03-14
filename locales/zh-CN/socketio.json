@@ -5,7 +5,11 @@
             "options": "配置",
             "instance": "实例",
             "event": "事件",
-            "namespace": "命名空间"
+            "namespace": "命名空间",
+            "outputDelay": "延迟输出"
+        },
+        "desc": {
+            "initOutputDelay": "初始化之后延迟 {n} 毫秒输出"
         }
     }
 }

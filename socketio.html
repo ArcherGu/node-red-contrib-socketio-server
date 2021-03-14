@@ -79,9 +79,122 @@
 
 </script>
 
+<!-- Socket.Io Server init node -->
+<script type="text/html" data-template-name="socket.io-init">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="node-red:common.label.name"></span>
+        </label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-instance">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.instance"></span>
+        </label>
+        <input type="text" id="node-input-instance">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-delay">
+            <i class="fa fa-terminal"></i>
+            <span data-i18n="socketio.label.outputDelay"></span>
+        </label>
+        <input type="text" id="node-input-delay" placeholder="100">
+        <div>
+            <span data-i18n="socketio.desc.initOutputDelay"></span>
+        </div>
+    </div>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('socket.io-init', {
+        category: 'Socket.IO',
+        color: "#00BFFF",
+        defaults: {
+            name: {
+                value: ""
+            },
+            instance: {
+                value: "",
+                required: true,
+                type: "socket.io-instance"
+            },
+            delay: {
+                value: 100,
+                required: true,
+                validate: RED.validators.number()
+            }
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: "bridge.svg",
+        label: function () {
+            return this.name || "Socket.IO Init";
+        }
+    });
+
+</script>
 
 <!-- Socket.Io Server event on node -->
 <script type="text/html" data-template-name="socket.io-on">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="node-red:common.label.name"></span>
+        </label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-event">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.event"></span>
+        </label>
+        <input type="text" id="node-input-event">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-namespace">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.namespace"></span>
+        </label>
+        <input type="text" id="node-input-namespace">
+    </div>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('socket.io-on', {
+        category: "Socket.IO",
+        color: "#00BFFF",
+        defaults: {
+            name: {
+                value: ""
+            },
+            event: {
+                value: "",
+                required: true,
+            },
+            namespace: {
+                value: "",
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "bridge.svg",
+        label: function () {
+            return this.name || ("On: " + this.event);
+        },
+    });
+
+</script>
+
+<!-- Socket.Io Server emit node -->
+<script type="text/html" data-template-name="socket.io-emit">
     <div class="form-row">
         <label for="node-input-name">
             <i class="fa fa-tag"></i>
@@ -117,9 +230,9 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('socket.io-on', {
+    RED.nodes.registerType('socket.io-emit', {
         category: "Socket.IO",
-        color: "rgb(0, 230, 184)",
+        color: "#00BFFF",
         defaults: {
             name: {
                 value: ""
@@ -137,11 +250,11 @@
                 value: "",
             }
         },
-        inputs: 0,
-        outputs: 1,
+        inputs: 1,
+        outputs: 0,
         icon: "bridge.svg",
         label: function () {
-            return this.name || "Socket.IO On";
+            return this.name || ("Emit: " + this.event);
         },
     });
 
