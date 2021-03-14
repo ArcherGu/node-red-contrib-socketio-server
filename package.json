@@ -1,0 +1,26 @@
+{
+    "name": "node-red-contrib-socketio-server",
+    "version": "0.1.0",
+    "description": "A Node-Red node for Socket.IO server",
+    "node-red": {
+        "nodes": {
+            "socket.io": "socketio.js"
+        }
+    },
+    "author": "ArcherGu",
+    "license": "MIT",
+    "keywords": [
+        "node-red",
+        "socket.io",
+        "websocket",
+        "namespace"
+    ],
+    "homepage": "https://github.com/ArcherGu/node-red-contrib-socketio-server",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ArcherGu/node-red-contrib-socketio-server.git"
+    },
+    "dependencies": {
+        "socket.io": "^4.0.0"
+    }
+}
