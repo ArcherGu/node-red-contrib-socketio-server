@@ -6,10 +6,7 @@
             "instance": "Instance",
             "event": "Event",
             "namespace": "Namespace",
-            "outputDelay": "Output Delay"
-        },
-        "desc": {
-            "initOutputDelay": "After initialization, the output is delayed after {n} ms"
+            "room": "Room"
         }
     }
 }

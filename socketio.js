@@ -1,8 +1,16 @@
 module.exports = function (RED) {
     const socketio = require("socket.io");
 
-    function _getNamespaceInstance(instance, namespace) {
-        return namespace ? instance.of(namespace) : instance;
+    function _getNamespaceAndRoomInstance(instance, namespace, room) {
+        if (namespace) {
+            instance = instance.of(namespace);
+        }
+
+        if (room) {
+            instance = instance.to(room);
+        }
+
+        return instance;
     }
 
     function socketIoInstance(n) {
@@ -27,21 +35,6 @@ module.exports = function (RED) {
         });
     }
 
-    function socketIoInit(n) {
-        RED.nodes.createNode(this, n);
-        // node-specific code goes here
-        const node = this;
-        this.name = n.name;
-        this.delay = n.delay;
-        this.instance = RED.nodes.getNode(n.instance).instance;
-
-        setTimeout(() => {
-            node.send({
-                socketIoInstance: this.instance
-            });
-        }, this.delay);
-    }
-
     function socketIoOn(n) {
         RED.nodes.createNode(this, n);
         // node-specific code goes here
@@ -49,24 +42,20 @@ module.exports = function (RED) {
         this.name = n.name;
         this.event = n.event;
         this.namespace = n.namespace;
+        this.instance = RED.nodes.getNode(n.instance).instance;
 
-        node.on("input", (msg) => {
-            if (!msg.socketIoInstance) {
-                node.log("No msg.instance");
-                return;
-            }
-            const instance = _getNamespaceInstance(msg.socketIoInstance, this.namespace);
+        const instance = _getNamespaceAndRoomInstance(this.instance, this.namespace, null);
 
-            const listener = (socket) => {
-                msg.socket = socket;
-                node.send(msg);
-            };
-
-            instance.on(this.event, listener);
-
-            node.on("close", () => {
-                instance.off(this.event, listener);
+        const listener = (socket) => {
+            node.send({
+                socket
             });
+        };
+
+        instance.on(this.event, listener);
+
+        node.on("close", () => {
+            instance.off(this.event, listener);
         });
     }
 
@@ -77,16 +66,60 @@ module.exports = function (RED) {
         this.name = n.name;
         this.event = n.event;
         this.namespace = n.namespace;
+        this.room = n.room;
         this.instance = RED.nodes.getNode(n.instance).instance;
 
-        const instance = _getNamespaceInstance(this.instance, this.namespace);
         node.on('input', (msg) => {
+            const instance = _getNamespaceAndRoomInstance(
+                this.instance,
+                msg.namespace || this.namespace,
+                msg.room || this.room,
+            );
             instance.emit(this.event, msg.payload);
         });
     }
 
+    function socketIoMiddlewareStart(n) {
+        RED.nodes.createNode(this, n);
+        // node-specific code goes here
+        const node = this;
+        this.name = n.name;
+        this.namespace = n.namespace;
+        this.instance = RED.nodes.getNode(n.instance).instance;
+        const instance = _getNamespaceAndRoomInstance(this.instance, this.namespace, null);
+
+        instance.use((socket, next) => {
+            node.send({
+                socket,
+                next
+            });
+        });
+    }
+
+    function socketIoMiddlewareEnd(n) {
+        RED.nodes.createNode(this, n);
+        // node-specific code goes here
+        const node = this;
+        this.name = n.name;
+
+        node.on("input", (msg) => {
+            if (!msg.next) {
+                node.log("No msg.next");
+                return;
+            }
+
+            if (msg.payload) {
+                msg.next();
+            }
+            else {
+                msg.next(new Error(msg.errMsg ? msg.errMsg : 'invalid'));
+            }
+        });
+    }
+
     RED.nodes.registerType("socket.io-instance", socketIoInstance);
-    RED.nodes.registerType("socket.io-init", socketIoInit);
     RED.nodes.registerType("socket.io-on", socketIoOn);
     RED.nodes.registerType("socket.io-emit", socketIoEmit);
+    RED.nodes.registerType("socket.io-middleware-start", socketIoMiddlewareStart);
+    RED.nodes.registerType("socket.io-middleware-end", socketIoMiddlewareEnd);
 };

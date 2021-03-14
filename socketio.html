@@ -79,8 +79,8 @@
 
 </script>
 
-<!-- Socket.Io Server init node -->
-<script type="text/html" data-template-name="socket.io-init">
+<!-- Socket.Io Server event on node -->
+<script type="text/html" data-template-name="socket.io-on">
     <div class="form-row">
         <label for="node-input-name">
             <i class="fa fa-tag"></i>
@@ -95,58 +95,6 @@
             <span data-i18n="socketio.label.instance"></span>
         </label>
         <input type="text" id="node-input-instance">
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-delay">
-            <i class="fa fa-terminal"></i>
-            <span data-i18n="socketio.label.outputDelay"></span>
-        </label>
-        <input type="text" id="node-input-delay" placeholder="100">
-        <div>
-            <span data-i18n="socketio.desc.initOutputDelay"></span>
-        </div>
-    </div>
-
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('socket.io-init', {
-        category: 'Socket.IO',
-        color: "#00BFFF",
-        defaults: {
-            name: {
-                value: ""
-            },
-            instance: {
-                value: "",
-                required: true,
-                type: "socket.io-instance"
-            },
-            delay: {
-                value: 100,
-                required: true,
-                validate: RED.validators.number()
-            }
-        },
-        inputs: 0,
-        outputs: 1,
-        icon: "bridge.svg",
-        label: function () {
-            return this.name || "Socket.IO Init";
-        }
-    });
-
-</script>
-
-<!-- Socket.Io Server event on node -->
-<script type="text/html" data-template-name="socket.io-on">
-    <div class="form-row">
-        <label for="node-input-name">
-            <i class="fa fa-tag"></i>
-            <span data-i18n="node-red:common.label.name"></span>
-        </label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
     </div>
 
     <div class="form-row">
@@ -175,6 +123,11 @@
             name: {
                 value: ""
             },
+            instance: {
+                value: "",
+                required: true,
+                type: "socket.io-instance"
+            },
             event: {
                 value: "",
                 required: true,
@@ -183,7 +136,7 @@
                 value: "",
             }
         },
-        inputs: 1,
+        inputs: 0,
         outputs: 1,
         icon: "bridge.svg",
         label: function () {
@@ -193,7 +146,7 @@
 
 </script>
 
-<!-- Socket.Io Server emit node -->
+<!-- Socket.Io Server event emit node -->
 <script type="text/html" data-template-name="socket.io-emit">
     <div class="form-row">
         <label for="node-input-name">
@@ -227,6 +180,14 @@
         <input type="text" id="node-input-namespace">
     </div>
 
+    <div class="form-row">
+        <label for="node-input-room">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.room"></span>
+        </label>
+        <input type="text" id="node-input-room">
+    </div>
+
 </script>
 
 <script type="text/javascript">
@@ -248,6 +209,9 @@
             },
             namespace: {
                 value: "",
+            },
+            room: {
+                value: "",
             }
         },
         inputs: 1,
@@ -255,6 +219,92 @@
         icon: "bridge.svg",
         label: function () {
             return this.name || ("Emit: " + this.event);
+        },
+    });
+
+</script>
+
+<!-- Socket.Io Server middleware start node -->
+<script type="text/html" data-template-name="socket.io-middleware-start">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="node-red:common.label.name"></span>
+        </label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-instance">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.instance"></span>
+        </label>
+        <input type="text" id="node-input-instance">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-namespace">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="socketio.label.namespace"></span>
+        </label>
+        <input type="text" id="node-input-namespace">
+    </div>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('socket.io-middleware-start', {
+        category: "Socket.IO",
+        color: "#BA55D3",
+        defaults: {
+            name: {
+                value: ""
+            },
+            instance: {
+                value: "",
+                required: true,
+                type: "socket.io-instance"
+            },
+            namespace: {
+                value: "",
+            }
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: "bridge.svg",
+        label: function () {
+            return this.name || "Socket.IO Middleware Start";
+        },
+    });
+
+</script>
+
+<!-- Socket.Io Server middleware end node -->
+<script type="text/html" data-template-name="socket.io-middleware-end">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="node-red:common.label.name"></span>
+        </label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('socket.io-middleware-end', {
+        category: "Socket.IO",
+        color: "#BA55D3",
+        defaults: {
+            name: {
+                value: ""
+            }
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "bridge.svg",
+        label: function () {
+            return this.name || "Socket.IO Middleware End";
         },
     });
 
