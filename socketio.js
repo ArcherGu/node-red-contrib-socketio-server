@@ -18,7 +18,7 @@ module.exports = function (RED) {
         // node-specific code goes here
         const node = this;
         this.name = n.name;
-        this.port = n.port;
+        this.port = Number(n.port);
         try {
             this.options = n.options ? JSON.parse(n.options) : {};
         } catch (error) {
@@ -26,7 +26,12 @@ module.exports = function (RED) {
             this.options = {};
         }
 
-        this.instance = socketio(this.port, this.options);
+        if (RED.server.address().port == this.port) {
+            this.instance = socketio(RED.server, this.options);
+        }
+        else {
+            this.instance = socketio(this.port, this.options);
+        }
         node.log("Created Socket.IO server at " + this.port);
 
         node.on("close", () => {
