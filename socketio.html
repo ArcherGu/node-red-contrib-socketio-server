@@ -10,7 +10,7 @@
 
     <div class="form-row">
         <label for="node-config-input-port">
-            <i class="fa fa-terminal"></i>
+            <i class="fa fa-server"></i>
             <span data-i18n="socketio.label.port"></span>
         </label>
         <input type="text" id="node-config-input-port" placeholder="3000">
@@ -91,7 +91,7 @@
 
     <div class="form-row">
         <label for="node-input-instance">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-link"></i>
             <span data-i18n="socketio.label.instance"></span>
         </label>
         <input type="text" id="node-input-instance">
@@ -99,7 +99,7 @@
 
     <div class="form-row">
         <label for="node-input-event">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-flag"></i>
             <span data-i18n="socketio.label.event"></span>
         </label>
         <input type="text" id="node-input-event">
@@ -107,7 +107,7 @@
 
     <div class="form-row">
         <label for="node-input-namespace">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-comments"></i>
             <span data-i18n="socketio.label.namespace"></span>
         </label>
         <input type="text" id="node-input-namespace">
@@ -138,7 +138,7 @@
         },
         inputs: 0,
         outputs: 1,
-        icon: "bridge.svg",
+        icon: "font-awesome/fa-feed",
         label: function () {
             return this.name || ("On: " + this.event);
         },
@@ -158,7 +158,7 @@
 
     <div class="form-row">
         <label for="node-input-instance">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-link"></i>
             <span data-i18n="socketio.label.instance"></span>
         </label>
         <input type="text" id="node-input-instance">
@@ -166,7 +166,7 @@
 
     <div class="form-row">
         <label for="node-input-event">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-flag"></i>
             <span data-i18n="socketio.label.event"></span>
         </label>
         <input type="text" id="node-input-event">
@@ -174,7 +174,7 @@
 
     <div class="form-row">
         <label for="node-input-namespace">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-comments"></i>
             <span data-i18n="socketio.label.namespace"></span>
         </label>
         <input type="text" id="node-input-namespace">
@@ -182,7 +182,7 @@
 
     <div class="form-row">
         <label for="node-input-room">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-inbox"></i>
             <span data-i18n="socketio.label.room"></span>
         </label>
         <input type="text" id="node-input-room">
@@ -215,7 +215,7 @@
         },
         inputs: 1,
         outputs: 0,
-        icon: "bridge.svg",
+        icon: "font-awesome/fa-bullhorn",
         label: function () {
             return this.name || ("Emit: " + this.event);
         },
@@ -235,7 +235,7 @@
 
     <div class="form-row">
         <label for="node-input-room">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-inbox"></i>
             <span data-i18n="socketio.label.room"></span>
         </label>
         <input type="text" id="node-input-room">
@@ -257,7 +257,7 @@
         },
         inputs: 1,
         outputs: 1,
-        icon: "bridge.svg",
+        icon: "font-awesome/fa-sign-in",
         label: function () {
             return this.name || ("Join: " + this.room);
         },
@@ -277,7 +277,7 @@
 
     <div class="form-row">
         <label for="node-input-room">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-inbox"></i>
             <span data-i18n="socketio.label.room"></span>
         </label>
         <input type="text" id="node-input-room">
@@ -299,7 +299,7 @@
         },
         inputs: 1,
         outputs: 1,
-        icon: "bridge.svg",
+        icon: "font-awesome/fa-sign-out",
         label: function () {
             return this.name || ("Leave: " + this.room);
         },
@@ -319,7 +319,7 @@
 
     <div class="form-row">
         <label for="node-input-instance">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-link"></i>
             <span data-i18n="socketio.label.instance"></span>
         </label>
         <input type="text" id="node-input-instance">
@@ -327,7 +327,7 @@
 
     <div class="form-row">
         <label for="node-input-namespace">
-            <i class="fa fa-tag"></i>
+            <i class="fa fa-comments"></i>
             <span data-i18n="socketio.label.namespace"></span>
         </label>
         <input type="text" id="node-input-namespace">
@@ -354,7 +354,7 @@
         },
         inputs: 0,
         outputs: 1,
-        icon: "bridge.svg",
+        icon: "serial.svg",
         label: function () {
             return this.name || "Socket.IO Middleware Start";
         },
@@ -385,7 +385,7 @@
         },
         inputs: 1,
         outputs: 0,
-        icon: "bridge.svg",
+        icon: "serial.svg",
         label: function () {
             return this.name || "Socket.IO Middleware End";
         },
