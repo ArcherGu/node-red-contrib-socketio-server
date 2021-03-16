@@ -26,8 +26,9 @@ module.exports = function (RED) {
             this.options = {};
         }
 
-        if (RED.server.address().port == this.port) {
+        if (Number(RED.settings.uiPort) == this.port) {
             this.instance = socketio(RED.server, this.options);
+            node.log("Socket.IO server will bind to Node-Red");
         }
         else {
             this.instance = socketio(this.port, this.options);
