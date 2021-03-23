@@ -11,6 +11,8 @@ A Node-Red node for [Socket.IO](https://socket.io/docs/v3) server.
 -   `socket.io-leave-room`: leave a room.
 -   `socket.io-middleware-start` & `socket.io-middleware-end`: for middleware.
 
+Note: Do not print any `msg` that contains the `msg.socket`. Otherwise it will cause "RangeError: Maximum call stack size exceeded" error. see [issues #1](https://github.com/ArcherGu/node-red-contrib-socketio-server/issues/1).
+
 ## License
 
 The code in this project is licensed under [MIT license](https://github.com/ArcherGu/node-red-contrib-socketio-server/blob/main/LICENSE).
