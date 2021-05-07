@@ -83,12 +83,12 @@
     <p><strong>Do not override or delete these two members in the process</strong></p>
 
     <p>The process finally needs to mount <code>true / false</code> to <code>msg.payload</code>, Then link
-        to<code>socket.io middleware
+        to <code>socket.io middleware
             end</code> to complete the entire process of the middleware.
     </p>
-    <p>success: <code>socket.io middleware end</code> recevies <code>msg.payload</code> what is <code>true</code></p>
+    <p>success: <code>socket.io middleware end</code> receives <code>msg.payload</code> what is <code>true</code></p>
     <p>fail: <code>socket.io middleware
-            end</code> recevies <code>msg.payload</code> is <code>false</code>, the client will be
+            end</code> receives <code>msg.payload</code> is <code>false</code>, the client will be
         disconnected. You can mount a custom error message to <code>msg.errMsg</code> which will be send to client.
     </p>
 
