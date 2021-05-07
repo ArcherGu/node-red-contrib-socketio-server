@@ -15,7 +15,7 @@ Note: Do not print any `msg` that contains the `msg.socket`. Otherwise it will c
 
 ## Tutorial
 
-You can find tutorial [here]().
+You can find tutorial [here](https://github.com/ArcherGu/node-red-contrib-socketio-server/tree/main/tutorial).
 
 ## License
 
