@@ -5,23 +5,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, watch } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "ChatDemo",
     components: {},
-    props: {
-        who: {
-            type: Object as PropType<null | string>,
-            default: () => null,
-        },
-    },
+    props: {},
     setup(props) {
-        const initChatDemo = () => {
-            console.log(props.who);
+        const initChatDemo = (opts: { [key: string]: string }) => {
+            console.log(opts);
         };
 
-        watch(() => props.who, initChatDemo);
+        return {
+            initChatDemo,
+        };
     },
 });
 </script>

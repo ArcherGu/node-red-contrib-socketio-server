@@ -1,11 +1,12 @@
 <template>
     <ChatWithWho
-        v-if="!friend"
-        @update-friend="updateFriend"
+        v-if="!isChatTime"
+        @update-opts="updateOpts"
     />
+
     <ChatDemo
         v-else
-        :who="friend"
+        ref="chatDemo"
     />
 
     <div class="copyright">
@@ -22,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, ref, nextTick } from "vue";
 import ChatWithWho from "./components/ChatWithWho.vue";
 import ChatDemo from "./components/ChatDemo.vue";
 
@@ -34,17 +35,19 @@ export default defineComponent({
     },
     props: {},
     setup(props) {
-        const state = reactive({
-            friend: null as null | string,
-        });
+        const isChatTime = ref(false);
+        const chatDemo = ref<any>(null);
 
-        const updateFriend = (who: string) => {
-            state.friend = who;
+        const updateOpts = async (opts: { [key: string]: string }) => {
+            isChatTime.value = true;
+            await nextTick();
+            chatDemo.value.initChatDemo(opts);
         };
 
         return {
-            ...toRefs(state),
-            updateFriend,
+            isChatTime,
+            chatDemo,
+            updateOpts,
         };
     },
 });
