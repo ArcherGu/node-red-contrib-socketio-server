@@ -19,5 +19,6 @@
         "vite": "^2.2.3",
         "vite-plugin-style-import": "^0.10.0",
         "vue-tsc": "^0.0.24"
-    }
+    },
+    "license": "MIT"
 }

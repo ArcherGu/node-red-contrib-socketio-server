@@ -59,6 +59,7 @@ export default defineComponent({
     height: 100vh;
     justify-content: center;
     align-items: center;
+    padding: 0 1rem;
 }
 
 .copyright {
