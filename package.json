@@ -7,6 +7,11 @@
             "socket.io": "socketio.js"
         }
     },
+    "scripts": {
+        "client:init": "cd ./examples/client-demo && yarn",
+        "client:dev": "cd ./examples/client-demo && yarn dev",
+        "client:build": "cd ./examples/client-demo && yarn build"
+    },
     "author": "ArcherGu",
     "license": "MIT",
     "keywords": [
