@@ -1,13 +1,15 @@
 <template>
-    <ChatWithWho
-        v-if="!isChatTime"
-        @update-opts="updateOpts"
-    />
+    <div class="chat-demo-content">
+        <ChatWithWho
+            v-if="!isChatTime"
+            @update-opts="updateOpts"
+        />
 
-    <ChatDemo
-        v-else
-        ref="chatDemo"
-    />
+        <ChatDemo
+            v-else
+            ref="chatDemo"
+        />
+    </div>
 
     <div class="copyright">
         Chat Demo with <a
@@ -54,9 +56,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-#app {
-    display: flex;
+.chat-demo-content {
     height: 100vh;
+    display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 1rem;
@@ -64,7 +66,9 @@ export default defineComponent({
 
 .copyright {
     position: absolute;
-    bottom: 2vh;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
     a {
         color: #337ab7;
         text-decoration: none;

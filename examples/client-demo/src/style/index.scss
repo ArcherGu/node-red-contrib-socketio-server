@@ -10,3 +10,25 @@ body {
     min-height: 100vh;
     background: linear-gradient(to left bottom, rgb(179, 233, 255) 0%, rgb(179, 193, 255) 100%);
 }
+
+#app {
+    height: 100%;
+    width: 100%;
+}
+
+
+//滚动条的宽度
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+//滚动条的滑块
+::-webkit-scrollbar-thumb {
+    background-color: rgba(208, 208, 208, .3);
+    border-radius: 5px;
+}
+
+:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(208, 208, 208, .6);
+}

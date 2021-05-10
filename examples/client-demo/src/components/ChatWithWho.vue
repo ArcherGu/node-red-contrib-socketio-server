@@ -73,8 +73,6 @@ export default defineComponent({
 
 <style lang="scss">
 .chat-with-who {
-    max-height: 50vh;
-    min-width: 15vw;
     display: flex;
     justify-content: center;
     align-items: center;
