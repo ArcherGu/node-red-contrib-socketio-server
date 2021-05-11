@@ -48,21 +48,41 @@ module.exports = function (RED) {
         this.name = n.name;
         this.event = n.event;
         this.namespace = n.namespace;
-        this.instance = RED.nodes.getNode(n.instance).instance;
+        if (n.instance) {
+            this.instance = RED.nodes.getNode(n.instance).instance;
 
-        const instance = _getNamespaceAndRoomInstance(this.instance, this.namespace, null);
+            const instance = _getNamespaceAndRoomInstance(this.instance, this.namespace, null);
 
-        const listener = (socket) => {
-            node.send({
-                socket
+            const listener = (socket) => {
+                node.send({
+                    socket
+                });
+            };
+
+            instance.on(this.event, listener);
+
+            node.on("close", () => {
+                instance.off(this.event, listener);
             });
-        };
+        }
+        else {
+            node.on('input', (msg) => {
+                if (!this.event && !msg.socket) {
+                    return;
+                }
 
-        instance.on(this.event, listener);
+                const listener = (...args) => {
+                    msg.payload = args;
+                    node.send(msg);
+                };
 
-        node.on("close", () => {
-            instance.off(this.event, listener);
-        });
+                msg.socket.on(this.event, listener);
+
+                node.on("close", () => {
+                    msg.socket.off(this.event, listener);
+                });
+            });
+        }
     }
 
     function socketIoEmit(n) {

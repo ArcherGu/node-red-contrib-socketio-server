@@ -8,6 +8,7 @@
         <ChatDemo
             v-else
             ref="chatDemo"
+            @link-error="handleLinkError"
         />
     </div>
 
@@ -28,6 +29,7 @@
 import { defineComponent, ref, nextTick } from "vue";
 import ChatWithWho from "./components/ChatWithWho.vue";
 import ChatDemo from "./components/ChatDemo.vue";
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
     name: "App",
@@ -43,13 +45,22 @@ export default defineComponent({
         const updateOpts = async (opts: { [key: string]: string }) => {
             isChatTime.value = true;
             await nextTick();
-            chatDemo.value.initChatDemo(opts);
+            chatDemo.value.initChatSocketIO(opts);
+        };
+
+        const handleLinkError = () => {
+            ElMessage.warning(
+                "Failed to connect to the chat room, check the console for error messages!"
+            );
+
+            isChatTime.value = false;
         };
 
         return {
             isChatTime,
             chatDemo,
             updateOpts,
+            handleLinkError,
         };
     },
 });

@@ -9,7 +9,7 @@
         >
             <template v-for="item in history">
                 <div
-                    v-if="isSendMsg(item.person)"
+                    v-if="isSendMsg(item.from)"
                     class="history-send"
                 >
                     <div class="message-text">
@@ -56,67 +56,99 @@
 
 <script lang="ts">
 import { ElMessage } from "element-plus";
-import { defineComponent, reactive, ref, toRefs, nextTick } from "vue";
+import {
+    defineComponent,
+    reactive,
+    ref,
+    toRefs,
+    nextTick,
+    onBeforeUnmount,
+} from "vue";
+import { io, Socket } from "socket.io-client";
 
 interface HistoryItem {
-    person: string;
+    from: string;
+    to: string;
     msg: string;
-    time: string;
 }
 
 export default defineComponent({
     name: "ChatDemo",
+    emits: ["link-error"],
     components: {},
     props: {},
-    setup(props) {
+    setup(props, { emit }) {
         const chatWindow = ref<any>(null);
-
         const state = reactive({
             history: [] as HistoryItem[],
             message: "",
             opts: null as null | { [key: string]: string },
         });
 
-        const initChatDemo = (opts: { [key: string]: string }) => {
+        let client: Socket;
+
+        const initChatSocketIO = (opts: { [key: string]: string }) => {
             state.opts = { ...opts };
+            const roomArr = [opts.you, opts.friend].sort((a, b) =>
+                b.localeCompare(a)
+            );
+
+            try {
+                client = io(opts.address, {
+                    reconnection: false,
+                    query: {
+                        room: `${roomArr[0]}@${roomArr[1]}`,
+                    },
+                });
+
+                client.on("connect_error", (err) => {
+                    console.error(err);
+                    emit("link-error");
+                });
+
+                client.on("message", receiveMsg);
+            } catch (error) {
+                console.error(error);
+                emit("link-error");
+            }
         };
 
         const isSendMsg = (person: string) => {
             return person == state.opts?.you;
         };
 
-        let isYou = true;
-        const sendMsg = async () => {
+        const receiveMsg = async (data: HistoryItem) => {
+            state.history.push(data);
+
+            await nextTick();
+            chatWindow.value.scrollTop = chatWindow.value.scrollHeight;
+        };
+
+        const sendMsg = () => {
             if (!state.message.trim()) {
                 state.message = "";
                 ElMessage.warning("Please enter the message!");
                 return;
             }
 
-            if (isYou) {
-                state.history.push({
-                    person: state.opts!.you,
-                    msg: state.message,
-                    time: Date.now().toString(),
-                });
-            } else {
-                state.history.push({
-                    person: state.opts!.friend,
-                    msg: state.message,
-                    time: Date.now().toString(),
-                });
-            }
+            client.emit("message", {
+                from: state.opts.you,
+                to: state.opts.friend,
+                msg: state.message,
+            });
 
-            isYou = !isYou;
             state.message = "";
-            await nextTick();
-            chatWindow.value.scrollTop = chatWindow.value.scrollHeight;
         };
+
+        onBeforeUnmount(() => {
+            client?.emit("leave");
+            client?.close();
+        });
 
         return {
             ...toRefs(state),
             chatWindow,
-            initChatDemo,
+            initChatSocketIO,
             isSendMsg,
             sendMsg,
         };

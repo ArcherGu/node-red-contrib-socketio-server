@@ -51,12 +51,22 @@ export default defineComponent({
         const state = reactive({
             you: "",
             friend: "",
-            address: "http://127.0.0.1:3000/",
+            address: "http://127.0.0.1:3005/",
         });
 
         const handleOk = () => {
             if (!state.you || !state.friend || !state.address) {
                 ElMessage.warning("Please fill in the full information!");
+                return;
+            }
+
+            if (state.you.indexOf("@") > -1 || state.friend.indexOf("@") > -1) {
+                ElMessage.warning('Please do not use a name with the "@"!');
+                return;
+            }
+
+            if (state.you.trim() === state.friend.trim()) {
+                ElMessage.warning("Please don't chat with yourself!");
                 return;
             }
 
