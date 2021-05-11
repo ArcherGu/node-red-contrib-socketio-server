@@ -132,8 +132,8 @@ export default defineComponent({
             }
 
             client.emit("message", {
-                from: state.opts.you,
-                to: state.opts.friend,
+                from: state.opts?.you,
+                to: state.opts?.friend,
                 msg: state.message,
             });
 

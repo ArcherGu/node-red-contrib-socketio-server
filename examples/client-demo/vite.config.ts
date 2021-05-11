@@ -4,6 +4,7 @@ import styleImport from 'vite-plugin-style-import';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: "/node-red-contrib-socketio-server/",
     plugins: [
         vue(),
         styleImport({

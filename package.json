@@ -10,7 +10,8 @@
     "scripts": {
         "client:init": "cd ./examples/client-demo && yarn",
         "client:dev": "cd ./examples/client-demo && yarn dev",
-        "client:build": "cd ./examples/client-demo && yarn build"
+        "client:build": "cd ./examples/client-demo && yarn build",
+        "client:deploy": "gh-pages -fd ./examples/client-demo/dist"
     },
     "author": "ArcherGu",
     "license": "MIT",
@@ -27,5 +28,8 @@
     },
     "dependencies": {
         "socket.io": "^4.0.0"
+    },
+    "devDependencies": {
+        "gh-pages": "^3.1.0"
     }
 }
