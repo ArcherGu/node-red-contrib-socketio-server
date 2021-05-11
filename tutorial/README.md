@@ -59,3 +59,13 @@ fail: `socket.io middleware end` receives `msg.payload` is `false`, the client w
 ## 6. Example:
 
 You can find example flow [here](https://flows.nodered.org/flow/e65be16b8f2a83f61f0c2ad93bb52d1a).
+
+A chat demo is available:
+
+-   Import the [chat demo flow](https://github.com/ArcherGu/node-red-contrib-socketio-server/blob/main/examples/chat_room.json) to your node-red.
+-   Open two tabs with this [demo page](https://archergu.github.io/node-red-contrib-socketio-server/) on your browser.
+-   Enter the address of the socket.io in node-red, your name and your friend's name (just imaginary names like Tom and Jerry😀).
+-   Swap names on another tab, don't forget the address.
+-   Try it.
+
+<img width="800" src="./images/chat-demo.png" alt="logo">
