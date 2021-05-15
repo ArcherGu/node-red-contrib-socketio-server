@@ -51,7 +51,7 @@ export default defineComponent({
         const state = reactive({
             you: "",
             friend: "",
-            address: "http://127.0.0.1:3005/",
+            address: "https://node-red-for-hero-ku.herokuapp.com/",
         });
 
         const handleOk = () => {
