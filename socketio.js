@@ -19,6 +19,8 @@ module.exports = function (RED) {
         const node = this;
         this.name = n.name;
         this.port = Number(n.port);
+        this.bindToNode = n.bindToNode;
+
         try {
             this.options = n.options ? JSON.parse(n.options) : {};
         } catch (error) {
@@ -26,14 +28,14 @@ module.exports = function (RED) {
             this.options = {};
         }
 
-        if (Number(RED.settings.uiPort) == this.port) {
+        if (Number(RED.settings.uiPort) == this.port || this.bindToNode) {
             this.instance = socketio(RED.server, this.options);
             node.log("Socket.IO server will bind to Node-Red");
         }
         else {
             this.instance = socketio(this.port, this.options);
+            node.log("Created Socket.IO server at " + this.port);
         }
-        node.log("Created Socket.IO server at " + this.port);
 
         node.on("close", () => {
             this.instance.close();

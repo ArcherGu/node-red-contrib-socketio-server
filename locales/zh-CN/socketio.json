@@ -1,6 +1,7 @@
 {
     "socketio": {
         "label": {
+            "bindToNode": "和Node-Red相同的端口",
             "port": "端口",
             "options": "配置",
             "instance": "实例",

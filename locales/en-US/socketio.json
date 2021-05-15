@@ -1,6 +1,7 @@
 {
     "socketio": {
         "label": {
+            "bindToNode": "Bind to Node-Red Port",
             "port": "Port",
             "options": "Options",
             "instance": "Instance",
