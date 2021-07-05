@@ -30,7 +30,8 @@ module.exports = function (RED) {
 
         if (Number(RED.settings.uiPort) == this.port || this.bindToNode) {
             this.instance = socketio(RED.server, this.options);
-            node.log("Socket.IO server will bind to Node-Red");
+            this.instance.protectHttpServer = true;
+            node.log("Socket.IO server will bind to Node-Red port");
         }
         else {
             this.instance = socketio(this.port, this.options);
@@ -38,8 +39,11 @@ module.exports = function (RED) {
         }
 
         node.on("close", () => {
+            if (this.instance.protectHttpServer) {
+                this.instance.httpServer = null;
+            }
             this.instance.close();
-            node.log("Closed Socket.IO server at " + this.port);
+            node.log("Closed Socket.IO server at " + (this.bindToNode ? 'Node-Red port' : this.port));
         });
     }
 
